@@ -139,6 +139,7 @@ IDENTITY_ENCODER = {'Identity-H':'Identity-H',
                     'DLIdent-V':'Identity-V',
                     'OneByteIdentityH':'OneByteIdentityH',
                     'OneByteIdentityV':'OneByteIdentityV',
+                    'UniGB-UTF16-H':'UniGB-UTF16-H',
                     }
 
 def getdict(data):
