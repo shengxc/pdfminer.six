@@ -13,7 +13,7 @@ other purposes instead of text analysis.
 import sys
 import warnings
 
-__version__ = '20191216'
+__version__ = '0.0.1'
 
 
 if sys.version_info < (3, 0):

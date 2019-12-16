@@ -3,7 +3,7 @@ from setuptools import setup
 import pdfminer as package
 
 setup(
-    name='epdfminer.six',
+    name='e.pdfminer.six',
     version=package.__version__,
     packages=['pdfminer'],
     package_data={'pdfminer': ['cmap/*.pickle.gz']},
