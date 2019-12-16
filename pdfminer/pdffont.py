@@ -133,14 +133,9 @@ NIBBLES = ('0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '.', 'e', 'e-', Non
 
 #Note: DLIdent-* isn't found in PDF Reference but is been kept as
 #it is harmless and have possibility of been a type. (induced from bug report/PR)
-IDENTITY_ENCODER = {'Identity-H':'Identity-H',
-                    'Identity-V':'Identity-V',
-                    'DLIdent-H':'Identity-H',
+IDENTITY_ENCODER = {'DLIdent-H':'Identity-H',
                     'DLIdent-V':'Identity-V',
-                    'OneByteIdentityH':'OneByteIdentityH',
-                    'OneByteIdentityV':'OneByteIdentityV',
-                    'UniGB-UTF16-H':'UniGB-UTF16-H',
-                    }
+                   }
 
 def getdict(data):
     d = {}
@@ -727,9 +722,12 @@ class PDFCIDFont(PDFFont):
                 if strict:
                     raise PDFFontError('CMapName unspecified for encoding')
                 cmap_name = 'unknown'
-        if cmap_name in IDENTITY_ENCODER:
-            return CMapDB.get_cmap(IDENTITY_ENCODER[cmap_name])
-        else:
+        try:
+            return CMapDB.get_cmap(IDENTITY_ENCODER.get(cmap_name, cmap_name))
+        except CMapDB.CMapNotFound as e:
+            if settings.STRICT:
+                raise PDFFontError(e)
+            log.error("error cmap_name[%s]", cmap_name)
             return CMap()
 
     def __repr__(self):
